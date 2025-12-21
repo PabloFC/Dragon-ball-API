@@ -1,6 +1,27 @@
 <div class="container">
   <h1>{{ title }}</h1>
   <p>¡Bienvenido a la aplicación de Dragon Ball!</p>
+
+  @if (loading) {
+  <div>
+    <p>Cargando personajes...</p>
+  </div>
+  } @if (error) {
+  <div class="error">
+    <p>{{ error }}</p>
+  </div>
+  } @if (!loading && !error) {
+  <div class="characters-list">
+    <h2>Personajes de Dragon Ball</h2>
+    <ul>
+      @for (character of characters; track character.id) {
+      <li>
+        <strong>{{ character.name }}</strong> - {{ character.race }} ({{ character.affiliation }})
+      </li>
+      }
+    </ul>
+  </div>
+  }
 </div>
 
 <router-outlet />
