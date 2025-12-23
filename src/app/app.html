@@ -1,9 +1,12 @@
 <div class="container">
-  <h1>{{ title }}</h1>
-  <p>¡Bienvenido a la aplicación de Dragon Ball!</p>
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>¡Bienvenido a la aplicación de Dragon Ball!</p>
+  </header>
 
   @if (loading) {
-  <div>
+  <div class="loading">
+    <div class="spinner"></div>
     <p>Cargando personajes...</p>
   </div>
   } @if (error) {
@@ -11,15 +14,29 @@
     <p>{{ error }}</p>
   </div>
   } @if (!loading && !error) {
-  <div class="characters-list">
-    <h2>Personajes de Dragon Ball</h2>
-    <ul>
-      @for (character of characters; track character.id) {
-      <li>
-        <strong>{{ character.name }}</strong> - {{ character.race }} ({{ character.affiliation }})
-      </li>
-      }
-    </ul>
+  <div class="characters-grid">
+    @for (character of characters; track character.id) {
+    <div class="character-card">
+      <img [src]="character.image" [alt]="character.name" class="character-image" />
+      <div class="character-info">
+        <h3 class="character-name">{{ character.name }}</h3>
+        <div class="character-details">
+          <span class="badge race">{{ character.race }}</span>
+          <span class="badge affiliation">{{ character.affiliation }}</span>
+        </div>
+        <div class="character-stats">
+          <div class="stat">
+            <span class="stat-label">Ki:</span>
+            <span class="stat-value">{{ character.ki }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Max Ki:</span>
+            <span class="stat-value">{{ character.maxKi }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
   </div>
   }
 </div>
