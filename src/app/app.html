@@ -4,19 +4,20 @@
     <p>¡Bienvenido a la aplicación de Dragon Ball!</p>
   </header>
 
-  @if (loading) {
-  <div class="loading">
+  <!-- Debug -->
+  <p style="color: red">DEBUG - Loading: {{ loading }}, Characters: {{ characters.length }}</p>
+
+  <div *ngIf="loading" class="loading">
     <div class="spinner"></div>
     <p>Cargando personajes...</p>
   </div>
-  } @if (error) {
-  <div class="error">
+
+  <div *ngIf="error" class="error">
     <p>{{ error }}</p>
   </div>
-  } @if (!loading && !error) {
-  <div class="characters-grid">
-    @for (character of characters; track character.id) {
-    <div class="character-card">
+
+  <div *ngIf="!loading && !error" class="characters-grid">
+    <div *ngFor="let character of characters" class="character-card">
       <img [src]="character.image" [alt]="character.name" class="character-image" />
       <div class="character-info">
         <h3 class="character-name">{{ character.name }}</h3>
@@ -36,9 +37,7 @@
         </div>
       </div>
     </div>
-    }
   </div>
-  }
 </div>
 
 <router-outlet />
