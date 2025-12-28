@@ -1,0 +1,42 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>¡Bienvenido a la API de Dragon Ball!</p>
+  </header>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando personajes...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="characters-grid">
+    <a
+      *ngFor="let character of characters"
+      [routerLink]="['/character', character.id]"
+      class="character-card"
+    >
+      <img [src]="character.image" [alt]="character.name" class="character-image" />
+      <div class="character-info">
+        <h3 class="character-name">{{ character.name }}</h3>
+        <div class="character-details">
+          <span class="badge race">{{ character.race }}</span>
+          <span class="badge affiliation">{{ character.affiliation }}</span>
+        </div>
+        <div class="character-stats">
+          <div class="stat">
+            <span class="stat-label">Ki:</span>
+            <span class="stat-value">{{ character.ki }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Max Ki:</span>
+            <span class="stat-value">{{ character.maxKi }}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
